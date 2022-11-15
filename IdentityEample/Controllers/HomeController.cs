@@ -30,7 +30,8 @@ namespace IdentityExample.Controllers
 
         public IActionResult Register() => View();
 
-        public IActionResult EmailVerification => View();
+        public IActionResult EmailVerification() => View();
+
 
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
@@ -59,8 +60,19 @@ namespace IdentityExample.Controllers
             if (result.Succeeded)
             {
                 //generation of email token
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                var link = Url.Action(nameof(VerifyEmail), "Home", new { userId = user.Id, code });
+
+                return RedirectToAction("EmailVerification");
 
             }
+            return View();
+        }
+
+
+        public async Task<IActionResult> VerifyEmail(string userId, string code)
+        {
             return View();
         }
 
