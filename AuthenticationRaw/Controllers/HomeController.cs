@@ -15,12 +15,17 @@ namespace AuthenticationRaw.Controllers
             return View();
         }
 
-        [Authorize]
+        //[Authorize(Policy = "Claim.DoB")]
+        //public IActionResult Secret()
+        //{
+        //    return View();
+        //}
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Secret()
         {
             return View();
         }
-
 
         public IActionResult Authenticate()
         {
@@ -28,6 +33,7 @@ namespace AuthenticationRaw.Controllers
             {
                 new Claim(ClaimTypes.Name, "Cks"),
                 new Claim(ClaimTypes.Email, "Cks"),
+                new Claim(ClaimTypes.DateOfBirth, "11/11/2011"),
                 new Claim("Ann.Says", "Hello Cks"),
             };
 

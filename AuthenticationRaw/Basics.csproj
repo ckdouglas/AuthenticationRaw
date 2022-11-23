@@ -12,6 +12,7 @@
     <None Remove="Views\" />
     <None Remove="Views\Home\" />
     <None Remove="Views\Shared\" />
+    <None Remove="AuthorizationRequirements\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -20,5 +21,6 @@
     <Folder Include="Views\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
+    <Folder Include="AuthorizationRequirements\" />
   </ItemGroup>
 </Project>

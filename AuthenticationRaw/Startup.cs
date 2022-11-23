@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Basics.AuthorizationRequirements;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,8 +30,24 @@ namespace AuthenticationRaw
                 //var defaultAuthBuilder = new AuthorizationPolicyBuilder();
                 //var defaultAuthPolicy = defaultAuthBuilder.RequireAuthenticatedUser().RequireClaim(claimType:ClaimTypes.DateOfBirth).Build();
                 //config.DefaultPolicy = defaultAuthPolicy;
+
+                //config.AddPolicy("Claim.DoB", policyBuilder =>
+                //{
+                //    policyBuilder.RequireClaim(claimType: ClaimTypes.DateOfBirth);
+                //});
+
+                //config.AddPolicy("Claim.DoB", policyBuilder =>
+                //{
+                //    policyBuilder.AddRequirements(new CustomRequireClaim(ClaimTypes.DateOfBirth));
+                //});
+
+                config.AddPolicy("Claim.DoB", policyBuilder =>
+                {
+                    policyBuilder.RequireCustomClaim(ClaimTypes.DateOfBirth);
+                });
             });
 
+            services.AddScoped<IAuthorizationHandler, CustomRequireClaimHandler>();
             services.AddControllersWithViews();
         }
 
@@ -41,7 +60,11 @@ namespace AuthenticationRaw
             }
 
             app.UseRouting();
+
+            //who are you
             app.UseAuthentication();
+
+            //Are you allowed here
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
