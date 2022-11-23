@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityExample.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,7 +37,6 @@ namespace IdentityExample
                 config.UseSqlServer("Data Source=192.168.1.107;Database=RawAuth;User ID=ck;Password=1290;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             });
 
-
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
                 config.Password.RequiredLength = 4;
@@ -57,9 +58,7 @@ namespace IdentityExample
 
             var mailKitOptions = _config.GetSection("Email").Get<MailKitOptions>();
             services.AddMailKit(config => config.UseMailKit(mailKitOptions));
-
             services.AddControllersWithViews();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

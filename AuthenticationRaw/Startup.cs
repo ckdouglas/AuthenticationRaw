@@ -21,6 +21,14 @@ namespace AuthenticationRaw
                 config.Cookie.Name = "AnnsCookie";
                 config.LoginPath = "/Home/Authenticate";
             });
+
+            services.AddAuthorization(config =>
+            {
+                //var defaultAuthBuilder = new AuthorizationPolicyBuilder();
+                //var defaultAuthPolicy = defaultAuthBuilder.RequireAuthenticatedUser().RequireClaim(claimType:ClaimTypes.DateOfBirth).Build();
+                //config.DefaultPolicy = defaultAuthPolicy;
+            });
+
             services.AddControllersWithViews();
         }
 
