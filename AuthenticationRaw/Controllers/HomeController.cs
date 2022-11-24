@@ -77,5 +77,6 @@ namespace AuthenticationRaw.Controllers
 /**
       EXTRAS
 1. IAuthorizationService - strategically place the authorization requests.
-
+2. AuthFilters
+3. Authorize Operation Requirement
  */
