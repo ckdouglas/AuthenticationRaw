@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,23 +10,27 @@ namespace AuthenticationRaw.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IAuthorizationService _authorizationService;
+
+        public HomeController(IAuthorizationService authorizationService)
+        {
+            _authorizationService = authorizationService;
+        }
+
+
         [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
-        //[Authorize(Policy = "Claim.DoB")]
-        //public IActionResult Secret()
-        //{
-        //    return View();
-        //}
-
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Claim.DoB")]
         public IActionResult Secret()
         {
             return View();
         }
+
 
         public IActionResult Authenticate()
         {
@@ -52,6 +57,25 @@ namespace AuthenticationRaw.Controllers
             HttpContext.SignInAsync(userPrincipal);
             return View();
         }
+
+        public async Task<IActionResult> DoStuff()
+        {
+
+            //we are doing stuff here
+            var builder = new AuthorizationPolicyBuilder("Schema");
+            var customPolicy = builder.RequireClaim("Hello").Build();
+            var authorised = await _authorizationService.AuthorizeAsync(HttpContext.User, customPolicy);
+            if (authorised.Succeeded)
+            {
+                //do something
+            }
+            return View("Index");
+        }
     }
 }
 
+/**
+      EXTRAS
+1. IAuthorizationService - strategically place the authorization requests.
+
+ */
