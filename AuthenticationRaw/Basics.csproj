@@ -13,6 +13,7 @@
     <None Remove="Views\Home\" />
     <None Remove="Views\Shared\" />
     <None Remove="AuthorizationRequirements\" />
+    <None Remove="ClaimsTransformation\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -22,5 +23,6 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="AuthorizationRequirements\" />
+    <Folder Include="ClaimsTransformation\" />
   </ItemGroup>
 </Project>
