@@ -14,6 +14,7 @@
     <None Remove="Views\Shared\" />
     <None Remove="AuthorizationRequirements\" />
     <None Remove="ClaimsTransformation\" />
+    <None Remove="CustomPolicyProvider\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -24,5 +25,6 @@
     <Folder Include="Views\Shared\" />
     <Folder Include="AuthorizationRequirements\" />
     <Folder Include="ClaimsTransformation\" />
+    <Folder Include="CustomPolicyProvider\" />
   </ItemGroup>
 </Project>
